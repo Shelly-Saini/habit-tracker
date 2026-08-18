@@ -4,7 +4,7 @@ A full-stack habit tracking productivity dashboard designed to help users build 
 
 ## 🚀 Tech Stack
 
-- **Frontend**: React, Vite, CSS Custom Properties (Light/Dark mode)
+- **Frontend**: React, Vite, CSS Custom Properties
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB, Mongoose
 
