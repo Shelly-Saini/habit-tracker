@@ -33,7 +33,7 @@ pipeline {
                 script {
                     def scannerHome = tool 'SonarQubeScanner'
 
-                    withSonarQubeEnv('SonarQube') {
+                    withSonarQubeEnv() {
                         bat """
                             "${scannerHome}\\bin\\sonar-scanner.bat" ^
                             -Dsonar.projectKey=habit-tracker ^
