@@ -28,6 +28,24 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQubeScanner'
+
+                    withSonarQubeEnv('SonarQube') {
+                        bat """
+                            "${scannerHome}\\bin\\sonar-scanner.bat" ^
+                            -Dsonar.projectKey=habit-tracker ^
+                            -Dsonar.projectName="Habit Tracker" ^
+                            -Dsonar.sources=. ^
+                            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/public/**,**/assets/**
+                        """
+                    }
+                }
+            }
+        }
+
         stage('Build Docker Images') {
             steps {
                 bat 'docker compose build'
