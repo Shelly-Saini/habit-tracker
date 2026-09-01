@@ -8,6 +8,10 @@ const Habit = require('./models/Habit');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Shared validation constants
+const VALID_CATEGORIES = ['Study', 'Health', 'Fitness', 'Personal', 'Other'];
+const VALID_PRIORITIES = ['Low', 'Medium', 'High'];
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -164,11 +168,9 @@ app.post('/api/habits', async (req, res) => {
       return res.status(400).json({ error: 'Habit name cannot exceed 100 characters.' });
     }
 
-    const validCategories = ['Study', 'Health', 'Fitness', 'Personal', 'Other'];
-    const habitCategory = validCategories.includes(category) ? category : 'Study';
+    const habitCategory = VALID_CATEGORIES.includes(category) ? category : 'Study';
 
-    const validPriorities = ['Low', 'Medium', 'High'];
-    const habitPriority = validPriorities.includes(priority) ? priority : 'Medium';
+    const habitPriority = VALID_PRIORITIES.includes(priority) ? priority : 'Medium';
 
     const newHabit = new Habit({
       name: trimmedName,
@@ -209,16 +211,14 @@ app.put('/api/habits/:id', async (req, res) => {
     }
 
     if (category !== undefined) {
-      const validCategories = ['Study', 'Health', 'Fitness', 'Personal', 'Other'];
-      if (!validCategories.includes(category)) {
+      if (!VALID_CATEGORIES.includes(category)) {
         return res.status(400).json({ error: 'Invalid category selected.' });
       }
       updateFields.category = category;
     }
 
     if (priority !== undefined) {
-      const validPriorities = ['Low', 'Medium', 'High'];
-      if (!validPriorities.includes(priority)) {
+      if (!VALID_PRIORITIES.includes(priority)) {
         return res.status(400).json({ error: 'Invalid priority selected.' });
       }
       updateFields.priority = priority;

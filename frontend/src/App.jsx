@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_BASE = 'http://localhost:5000/api/habits';
+const API_BASE = '/api/habits';
 const CATEGORIES = ['Study', 'Health', 'Fitness', 'Personal', 'Other'];
 const PRIORITIES = ['Low', 'Medium', 'High'];
 
