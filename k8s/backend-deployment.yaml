@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: habit-tracker-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: habit-tracker-backend
+  template:
+    metadata:
+      labels:
+        app: habit-tracker-backend
+    spec:
+      containers:
+        - name: backend
+          image: habit-tracker-git-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PORT
+              value: "5000"
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: habit-tracker-secret
+                  key: MONGO_URI

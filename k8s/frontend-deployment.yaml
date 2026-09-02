@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: habit-tracker-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: habit-tracker-frontend
+  template:
+    metadata:
+      labels:
+        app: habit-tracker-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: habit-tracker-git-frontend:k8s-v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
