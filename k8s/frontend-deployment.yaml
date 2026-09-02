@@ -12,9 +12,19 @@ spec:
       labels:
         app: habit-tracker-frontend
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: frontend
           image: habit-tracker-git-frontend:k8s-v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+              ephemeral-storage: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+              ephemeral-storage: "512Mi"
