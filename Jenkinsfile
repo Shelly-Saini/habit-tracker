@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+        timestamps()
+        disableConcurrentBuilds()
+    }
+
     stages {
 
         stage('Checkout from SCM') {
@@ -42,6 +48,14 @@ pipeline {
                             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/public/**,**/assets/**
                         """
                     }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
